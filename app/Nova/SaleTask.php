@@ -7,21 +7,22 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 
-class Ticket extends Resource
+class SaleTask extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Ticket::class;
+    public static $model = \App\Models\SaleTask::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -36,7 +37,7 @@ class Ticket extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'subject', 'content',
+        'id', 'name', 'email',
     ];
 
     /**
@@ -50,27 +51,22 @@ class Ticket extends Resource
         return [
             ID::make()->sortable()->hideFromIndex(),
 
-            Date::make('Date')->format('YYYY-MM-DD')->default(new DateTime('today')),
-            Text::make('Subject')
-                ->sortable()
-                ->rules('required', 'max:255'),
 
-            Textarea::make('Issue')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            DateTime::make('Due Date','due_date')
+            ->sortable()
+            ->rules('required', 'max:255'),
 
-            BelongsTo::make('Company')->rules('required')->searchable(),
-            BelongsTo::make('Admin')->rules('required')->hideFromIndex()->searchable(),
-            BelongsTo::make('User')->rules('required')->searchable(),
-            Select::make('Priority')->options([
-                'Low' => 'Low',
-                'Medium' => 'Medium',
-                'High' => 'High',
-            ])->displayUsingLabels()->rules('required')->default("Medium"),
-            BelongsTo::make('Ticket Status')->rules('required')->default(1),
-            Image::make('Attachment')->hideFromIndex(),
-            Textarea::make('Response')
+            Text::make('Enter your task','task')
+            ->sortable()
+            ->rules('required', 'max:255'),
+
+
+            Textarea::make('Notes...','notes')
             ->sortable(),
+
+            BelongsTo::make('Admin')->rules('required'),
+
+            Boolean::make('Archived')
 
 
         ];
@@ -84,7 +80,7 @@ class Ticket extends Resource
      */
     public function cards(Request $request)
     {
-        return [new \App\Nova\Metrics\NewTickets,new \App\Nova\Metrics\ClosedTickets,new \App\Nova\Metrics\TicketsPerStatus];
+        return [];
     }
 
     /**

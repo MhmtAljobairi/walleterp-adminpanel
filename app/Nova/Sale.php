@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
+use Eminiarts\Tabs\Tabs;
 
 class Sale extends Resource
 {
@@ -47,50 +48,64 @@ class Sale extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
 
-            Date::make('Date')->format('YYYY-MM-DD')
-            ->sortable()
-            ->rules('required', 'max:255'),
+            Tabs::make('Tabs', [
+                'Information'    => [
+                    ID::make()->sortable(),
 
-            Text::make('Company Name')
-            ->sortable()
-            ->rules('required', 'max:255'),
+                    Date::make('Date')->format('YYYY-MM-DD')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
 
-            Text::make('Contact Name')
-            ->sortable()
-            ->rules('required', 'max:255'),
+                    Text::make('Company Name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
 
-            Text::make('Telephone Number')
-            ->sortable()
-            ->rules('required', 'max:255'),
+                    Text::make('Contact Name')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
 
-            Text::make('Email Address')
-            ->sortable()->hideFromIndex(),
+                    Text::make('Telephone Number')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
+
+                    Text::make('Email Address')
+                    ->sortable()->hideFromIndex(),
 
 
-            Text::make('Field')
-            ->sortable()
-            ->rules('required', 'max:255'),
+                    Text::make('Field')
+                    ->sortable()
+                    ->rules('required', 'max:255'),
 
-            Text::make('Location')
-            ->sortable()
-            ->rules('required', 'max:255')->hideFromIndex(),
+                    Text::make('Location')
+                    ->sortable()
+                    ->rules('required', 'max:255')->hideFromIndex(),
 
-            Select::make('Status')->options([
-                'Prospecting' => 'Prospecting',
-                'Lead qualification' => 'Lead qualification',
-                'Demo or meeting.' => 'Demo or meeting.',
-                'Proposal' => 'Proposal',
-                'Negotiation and commitment' => 'Negotiation and commitment',
-                'Opportunity won' => 'Opportunity won',
-                'Post-purchase' => 'Post-purchase',
-        ])->displayUsingLabels()->default('Prospecting'),
+                    Select::make('Status')->options([
+                        'Prospecting' => 'Prospecting',
+                        'Lead qualification' => 'Lead qualification',
+                        'Demo or meeting.' => 'Demo or meeting',
+                        'Proposal' => 'Proposal',
+                        'Negotiation and commitment' => 'Negotiation and commitment',
+                        'Opportunity won' => 'Opportunity won',
+                        'No Answer' => 'No Answer',
+                        'Rejected' => 'Rejected',
+                        'Post-purchase' => 'Post-purchase',
+                    ])->displayUsingLabels()->default('Prospecting'),
 
-            Textarea::make('Notes')
-            ->sortable(),
+                    Textarea::make('Notes')->sortable()
 
-            HasMany::make('SaleNote'),
+
+
+                ],
+                'Sale Notes' => [
+                    HasMany::make('SaleNote'),
+                ],
+                'Tasks' => [
+                    HasMany::make('SaleTask'),
+                ],
+                ])->withToolbar(),
+
         ];
     }
 
@@ -102,7 +117,8 @@ class Sale extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [new  \App\Nova\Metrics\CountSalesMeeting , new \App\Nova\Metrics\SalesPerStatus];
+
     }
 
     /**

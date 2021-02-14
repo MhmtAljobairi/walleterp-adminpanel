@@ -7,21 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Sale extends Authenticatable
+class SaleTask extends Authenticatable
 {
 
     protected $casts = [
         'created_at' => 'date',
-        'date' => 'date',
+        'due_date' => 'date',
     ];
 
-    public function salenote()
-    {
-        return $this->belongsToMany('App\Models\SaleNote');
-    }
-    public function saletask()
-    {
-        return $this->belongsToMany('App\Models\SaleTask');
-    }
 
+    public function admin()
+    {
+        return $this->belongsTo('App\Models\Admin');
+    }
 }

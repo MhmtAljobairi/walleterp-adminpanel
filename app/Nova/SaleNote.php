@@ -46,7 +46,7 @@ class SaleNote extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            ID::make()->sortable()->hideFromIndex(),
 
 
             Date::make('Date')->format('YYYY-MM-DD')

@@ -35,7 +35,7 @@ class Company extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'org_company_name', 'email',
     ];
 
     /**
