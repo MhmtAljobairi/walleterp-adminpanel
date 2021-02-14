@@ -11,6 +11,7 @@ class Ticket extends Authenticatable {
 
     protected $casts = [
         'created_at' => 'datetime',
+        'date' => 'datetime',
     ];
 
     public function user()
