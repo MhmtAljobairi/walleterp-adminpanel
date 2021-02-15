@@ -63,7 +63,7 @@ class Sale extends Resource
 
                     Text::make('Contact Name')
                     ->sortable()
-                    ->rules('required', 'max:255'),
+                    ->rules('required', 'max:255')->hideFromIndex(),
 
                     Text::make('Telephone Number')
                     ->sortable()
