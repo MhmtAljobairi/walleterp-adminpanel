@@ -55,4 +55,9 @@ class NewTickets extends Value
     {
         return 'new-tickets';
     }
+
+    public function name()
+{
+    return 'Pending Tickets';
+}
 }

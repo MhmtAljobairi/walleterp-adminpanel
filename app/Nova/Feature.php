@@ -7,22 +7,24 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Select;
 
-class Admin extends Resource
+class Feature extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Admin::class;
+    public static $model = \App\Models\Feature::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -30,7 +32,7 @@ class Admin extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'title', 'description',
     ];
 
     /**
@@ -44,29 +46,21 @@ class Admin extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
-
-            Text::make('Name')
+            Text::make('Title')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
+                Textarea::make('Description')->sortable()->rules('required'),
 
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
+                Select::make('Status')->options([
+                    'Backlog' => 'Backlog',
+                    'Current Sprint' => 'Current Sprint',
+                    'Testing' => 'Testing',
+                    'Done Local' => 'Done Local',
+                    'Bug' => 'Bug',
+                    'Done Production' => 'Done Production'
+                ])->displayUsingLabels()->default('Backlog'),
 
-            Select::make('Role')->options([
-                    'Administator' => 'Administator',
-                    'Sales' => 'Sales',
-                    'Supports' => 'Supports',
-                    'Developers' => 'Developers',
-            ])->displayUsingLabels()->default('Developers'),
         ];
     }
 
@@ -89,7 +83,7 @@ class Admin extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [new \App\Nova\Filters\FeaturesStatus];
     }
 
     /**

@@ -49,7 +49,7 @@ class Sale extends Resource
     {
         return [
 
-            Tabs::make('Tabs', [
+            Tabs::make('Sales Information', [
                 'Information'    => [
                     ID::make()->sortable(),
 
@@ -84,6 +84,7 @@ class Sale extends Resource
                     Select::make('Status')->options([
                         'Prospecting' => 'Prospecting',
                         'Lead qualification' => 'Lead qualification',
+                        'Information Sent' => 'Information Sent',
                         'Demo or meeting.' => 'Demo or meeting',
                         'Proposal' => 'Proposal',
                         'Negotiation and commitment' => 'Negotiation and commitment',
@@ -129,7 +130,7 @@ class Sale extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [new \App\Nova\Filters\SalesStatus];
     }
 
     /**
