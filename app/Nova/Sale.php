@@ -51,7 +51,7 @@ class Sale extends Resource
 
             Tabs::make('Sales Information', [
                 'Information'    => [
-                    ID::make()->sortable(),
+                    ID::make()->sortable())->hideFromIndex(),
 
                     Date::make('Date')->format('YYYY-MM-DD')
                     ->sortable()
