@@ -12,6 +12,9 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Eminiarts\Tabs\Tabs;
 
 class Sale extends Resource
@@ -28,7 +31,7 @@ class Sale extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'company_name';
 
     /**
      * The columns that should be searched.
@@ -36,7 +39,7 @@ class Sale extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'company_name', 'contact_name',
     ];
 
     /**
@@ -103,7 +106,7 @@ class Sale extends Resource
                     HasMany::make('SaleNote'),
                 ],
                 'Tasks' => [
-                    HasMany::make('SaleTask'),
+                    HasMany::make('SaleTask')
                 ],
                 ])->withToolbar(),
 

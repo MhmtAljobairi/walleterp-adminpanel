@@ -49,7 +49,7 @@ class User extends Resource
 
             Text::make('Username')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'max:255')->hideFromIndex(),
 
             Text::make('Email')
                 ->sortable()
@@ -69,9 +69,9 @@ class User extends Resource
             Select::make('Language','pref_lang')->options([
                     'ar' => 'Arabic',
                     'en' => 'English',
-            ])->displayUsingLabels(),
+            ])->displayUsingLabels()->hideFromIndex(),
             BelongsTo::make('Parent User','parentUser', 'App\Nova\User')->nullable(),
-            Boolean::make('Onlime')
+            Boolean::make('Online')->hideWhenUpdating(),
         ];
     }
 

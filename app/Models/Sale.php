@@ -21,7 +21,7 @@ class Sale extends Authenticatable
     }
     public function saletask()
     {
-        return $this->belongsToMany('App\Models\SaleTask');
+        return $this->hasMany('App\Models\SaleTask');
     }
 
 }

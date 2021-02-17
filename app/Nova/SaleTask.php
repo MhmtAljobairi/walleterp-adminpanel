@@ -55,6 +55,7 @@ class SaleTask extends Resource
             DateTime::make('Due Date','due_date')
             ->sortable()
             ->rules('required', 'max:255'),
+             BelongsTo::make('Sale')->rules('required'),
 
             Text::make('Enter your task','task')
             ->sortable()

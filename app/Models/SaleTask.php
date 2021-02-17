@@ -19,5 +19,8 @@ class SaleTask extends Authenticatable
     public function admin()
     {
         return $this->belongsTo('App\Models\Admin');
+    } public function sale()
+    {
+        return $this->belongsTo('App\Models\Sale');
     }
 }

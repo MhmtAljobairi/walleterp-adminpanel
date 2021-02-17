@@ -53,11 +53,11 @@ class Ticket extends Resource
             Date::make('Date')->format('YYYY-MM-DD')->default(new DateTime('today')),
             Text::make('Subject')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required'),
 
             Textarea::make('Issue')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required'),
 
             BelongsTo::make('Company')->rules('required')->searchable(),
             BelongsTo::make('Admin')->rules('required')->hideFromIndex()->searchable(),
@@ -71,8 +71,6 @@ class Ticket extends Resource
             Image::make('Attachment')->hideFromIndex(),
             Textarea::make('Response')
             ->sortable(),
-
-
         ];
     }
 
