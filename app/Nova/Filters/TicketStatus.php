@@ -5,7 +5,7 @@ namespace App\Nova\Filters;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
 
-class SalesStatus  extends Filter
+class TicketStatus extends Filter
 {
     /**
      * The filter's component.
@@ -24,7 +24,7 @@ class SalesStatus  extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        return $query->where('status', $value);
+        return $query->where('ticket_status_id', $value);
     }
 
     /**
@@ -36,16 +36,11 @@ class SalesStatus  extends Filter
     public function options(Request $request)
     {
         return [
-            'Prospecting' => 'Prospecting',
-            'Lead qualification' => 'Lead qualification',
-            'Information Sent' => 'Information Sent',
-            'Demo or meeting.' => 'Demo or meeting',
-            'Proposal' => 'Proposal',
-            'Negotiation and commitment' => 'Negotiation and commitment',
-            'Opportunity won' => 'Opportunity won',
-            'No Answer' => 'No Answer',
-            'Rejected' => 'Rejected',
-            'Post-purchase' => 'Post-purchase',
+            'New' => '1',
+            'Waiting On Contact' => '2',
+            'Waiting On Us' => '3',
+            'Fixed' => '4',
+            'Closed' => '5'
         ];
     }
 }
