@@ -51,11 +51,11 @@ class Company extends Resource
 
             Text::make('Company Name')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'max:255')->hideFromIndex(),
 
             Text::make('Org Company Name')
                 ->sortable()
-                ->rules('required', 'max:255')->hideFromIndex(),
+                ->rules('required', 'max:255'),
 
             Text::make('Company Address')
                 ->sortable()

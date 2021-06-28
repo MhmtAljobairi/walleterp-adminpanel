@@ -60,6 +60,9 @@ class User extends Resource
             Text::make('Full Name')
             ->sortable()
             ->rules('required', 'max:255'),
+            Text::make('Phone')
+            ->sortable()
+            ->rules('required', 'max:255'),
 
             Password::make('Password')
                 ->onlyOnForms()

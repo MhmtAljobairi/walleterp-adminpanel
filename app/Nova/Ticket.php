@@ -68,7 +68,7 @@ class Ticket extends Resource
                 'High' => 'High',
             ])->displayUsingLabels()->rules('required')->default("Medium"),
             BelongsTo::make('Ticket Status')->rules('required')->default(1),
-            Image::make('Attachment')->hideFromIndex(),
+            Image::make('Attachment')->disk('s3')->hideFromIndex(),
             Textarea::make('Response')
             ->sortable(),
         ];
