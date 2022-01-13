@@ -57,12 +57,12 @@ class Subscription extends Resource
                 ->rules('required', 'max:255'),
 
             Select::make('Peroid','period_type_id')->options([
-                    '14' => 'Trial',
-                    '30' => 'Monthly',
-                    '90' => '3 Months',
-                    '182' => '6 Months',
-                    '365' => 'Yearly',
-                    '750' => '2 Year',
+                    '1' => 'Trial',
+                    '2' => 'Monthly',
+                    '3' => '3 Months',
+                    '5' => '6 Months',
+                    '6' => 'Yearly',
+                    '7' => '2 Year',
             ])->displayUsingLabels(),
 
             Select::make('Subscription Type','subscription_type_id')->options([
