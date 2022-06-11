@@ -61,9 +61,8 @@ class User extends Resource
             ->sortable()
             ->rules('required', 'max:255'),
             Text::make('Phone')
-            ->sortable()
-            ->rules('required', 'max:255'),
-
+            ->sortable(),
+            
             Password::make('Password')
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
@@ -74,7 +73,6 @@ class User extends Resource
                     'en' => 'English',
             ])->displayUsingLabels()->hideFromIndex(),
             BelongsTo::make('Parent User','parentUser', 'App\Nova\User')->nullable(),
-            Boolean::make('Online')->hideWhenUpdating(),
         ];
     }
 

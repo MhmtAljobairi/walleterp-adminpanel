@@ -59,12 +59,12 @@ class Company extends Resource
 
             Text::make('Company Address')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->rules('required', 'max:255')->hideFromIndex(),
 
             Text::make('Email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:companies,email'),
+                ->creationRules('unique:companies,email')->hideFromIndex(),
 
             Text::make('Phone Number')
                 ->sortable()->hideFromIndex(),
