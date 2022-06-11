@@ -98,14 +98,16 @@ class Company extends Resource
 
             Select::make('Company Type',"company_type_id")->options([
                     '1' => 'Fashion & Apparel',
-                    '2' => 'Electrons Store',
+                    '2' => 'Electrons/Mobile Store',
                     '3' => 'Warehouse Store',
                     '4' => 'Restaurants',
                     '5' => 'Food & Drink Retail',
                     '6' => 'Supermarket',
                     '7' => 'Pharmacies',
                     '8' => 'Drug Store',
-                    '9' => 'Other',
+                    '9' => 'Cigarettes',
+                    '10' => 'Non Profit',
+                    '12' => 'Other',
             ])->displayUsingLabels(),
 
             BelongsTo::make('Country'),
